@@ -68,11 +68,14 @@ if data_file is not None:
         acc_prepared = accuracy_score(y_test, y_pred_prepared)
         st.write(f"Akurasi dengan preparation: {acc_prepared:.2f}")
     
-    if st.button("Simpan Model Terbaik"):
+   
+    if 'model_raw' in locals() and 'acc_raw' in locals():
         if 'acc_prepared' in locals() and acc_prepared > acc_raw:
             best_model = model_prepared
         else:
             best_model = model_raw
-        
+
         joblib.dump(best_model, 'best_model.pkl')
         st.write("Model terbaik telah disimpan sebagai 'best_model.pkl'")
+    else:
+        st.write("Harap jalankan model terlebih dahulu sebelum menyimpan!")
